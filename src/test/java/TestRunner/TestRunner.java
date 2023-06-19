@@ -14,8 +14,8 @@ import lombok.ToString;
 @CucumberOptions(
         features = "src/test/java/Features/",
         glue="Stepdefinition",
-       // plugin = {"pretty", "html:target/cucumber-reports"}
-        plugin = {"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:" }
+        plugin = {"pretty", "html:target/cucumber-reports"}
+       // plugin = {"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:" }
 )
 
 public class TestRunner {

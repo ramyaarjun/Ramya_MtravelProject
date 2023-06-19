@@ -23,8 +23,9 @@ public class HomePage {
         driver.manage().window().maximize();
         // Get the Page Title -  Home Page | Mail Travel
 
-        String Page_title = driver.getTitle();
-        System.out.println(Page_title);
+        String exp_pagetitle = driver.getTitle();
+        String Actual_title = "Home Page | Mail Travel";
+        org.junit.Assert.assertEquals(exp_pagetitle,Actual_title);
 
         // Accept Cookies in the Home Page
 
@@ -65,8 +66,6 @@ public class HomePage {
         WebElement datepicker = driver.findElement(By.id("calendar-cont"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", datepicker);
         Thread.sleep(500);
- /*       wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='nbf_tpl_pms_departure_select_title']/following::span[1]")));
-        wait.until(ExpectedConditions.elementToBeSelected(By.xpath("//*[@class='nbf_tpl_pms_departure_select_title']/following::span[1]")));*/
 
         //make note of Departure Airport
 
@@ -79,18 +78,15 @@ public class HomePage {
     @Then("User should be able to select a date")
     public void userShouldBeAbleToSelectADate() throws InterruptedException
     {
-        // Select 2 adults
+          // Select 2 adults
 
         Select adults = new Select(driver.findElement(By.name("numAdults")));
         adults.selectByValue("2");
-        // Select the first available date
+
+          // Select the first available date
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,-150)", "");
-        Thread.sleep(3000);
-       // WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='nbf_tpl_pms_calendar_next nbf_tpl_pms_calendar_update']")));
-        //wait.until(ExpectedConditions.elementToBeSelected(By.xpath("//*[@class='nbf_tpl_pms_calendar_next nbf_tpl_pms_calendar_update']")));
         WebElement next = driver.findElement(By.xpath("//*[@class='nbf_tpl_pms_calendar_next nbf_tpl_pms_calendar_update']"));
         next.click();
         //WebElement availableDate = driver.findElement((By.id("calendar-cont")));
@@ -121,9 +117,6 @@ public class HomePage {
         System.out.println("Displayed price : " + ap);
         Assert.assertEquals(expected_price,ap);
         Thread.sleep(2000);
-        //wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("book-button")));
-        //wait.until(ExpectedConditions.elementToBeSelected(By.id("book-button")));
-
         WebElement book_online = driver.findElement(By.id("book-button"));
         book_online.click();
     }
@@ -134,13 +127,12 @@ public class HomePage {
         // Click on the Departure
 
         Thread.sleep(8000);
-       // wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("nbf_tpl_pms_bf_panel__title__links")));
-        //wait.until(ExpectedConditions.elementToBeSelected(By.className("nbf_tpl_pms_bf_panel__title__links")));
         WebElement depart_view = driver.findElement(By.className("nbf_tpl_pms_bf_panel__title__links"));
         depart_view.click();
 
         //  In Accommodation select the number as 1
 
+        Thread.sleep(2000);
         Select Acc_select = new Select(driver.findElement(By.id("room-1673582-numselect")));
         Acc_select.selectByValue("1");
 
@@ -158,9 +150,7 @@ public class HomePage {
 
         //  Fill the register details
 
-        Thread.sleep(5000);
-        //wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("pax-a-title-1")));
-        //wait.until(ExpectedConditions.elementToBeSelected(By.id("pax-a-title-1")));
+        Thread.sleep(8000);
         Select select_title = new Select(driver.findElement(By.id("pax-a-title-1")));
         select_title.selectByValue("Mrs");
         WebElement first_name = driver.findElement(By.id("pax-a-first-1"));
@@ -212,11 +202,11 @@ public class HomePage {
 
         // Verify the label text matches the expected value
 
-        Thread.sleep(7000);
+        Thread.sleep(8000);
         WebElement lbl_confirm = driver.findElement(By.xpath("//div[@class='nbf_stage_current']/following::span[1]"));
         String confirm_label = lbl_confirm.getText();
         String lbl_expected = "Confirm Details + Book";
-        Assert.assertEquals(lbl_expected,confirm_label);
+        org.junit.Assert.assertEquals(lbl_expected,confirm_label);
         System.out.println(confirm_label);
 
         //  Verify the book now button is enabled
@@ -229,6 +219,7 @@ public class HomePage {
         {
             System.out.println("Book now is disabled");
         }
+        driver.quit();
 
     }
 }
